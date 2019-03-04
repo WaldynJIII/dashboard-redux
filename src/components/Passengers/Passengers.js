@@ -15,7 +15,7 @@ this.setState({
 })
   }
 setManifest=(event)=>{
-this.props.dispatch({type: "ADD_PASSENGER", payload: this.state.passenger})
+this.props.dispatch({type: "ADD_PASSENGER", payload: this.state.passenger}) //check the spelling of payload
 this.setState({
   ...this.state,
   passenger: '',
