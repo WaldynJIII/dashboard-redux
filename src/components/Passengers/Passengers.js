@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 // THIS COMPONENT IS OUR INTERFACE FOR PASSENGER CHECK IN
 // YOU SHOULD DISPLAY THE CURRENT PASSENGERS
 // INPUT SHOULD COLLECT INFO, BUTTON SHOULD ADD THEM TO THE LIST
@@ -14,19 +14,32 @@ this.setState({
   passenger: event.target.value
 })
   }
+setManifest=(event)=>{
+this.props.dispatch({type: "ADD_PASSENGER", payload: this.state.passenger})
+this.setState({
+  ...this.state,
+  passenger: '',
+})
+}
+  
   render() {
+    console.log(this.state.passenger)
     return (
       <div>
         <h2>Passengers</h2>
 
         <input onChange={this.onHandleChange} type="text" name="name" placeholder="Enter Name" />
-        <button on>Add Passenger</button>
+        <button onClick={this.setManifest}>Add Passenger</button>
 
-        <ul>PASSENGER LIST: GOES HERE</ul>
+        <ul>{this.props.reduxStore.passengerReducer.map(passenger=>(
+          <li>{passenger}</li>
+        ))}</ul>
       
       </div>
     )
   }
 }
-
-export default Passengers;
+const mapReduxStoreToProps = (reduxStore) => ({
+  reduxStore: reduxStore
+})
+export default connect(mapReduxStoreToProps)(Passengers);
